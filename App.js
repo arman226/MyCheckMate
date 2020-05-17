@@ -1,19 +1,36 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import * as React from 'react';
+import { View, Text, Button, TouchableOpacity } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { Provider } from 'react-redux'
+import { combineReducers, createStore } from 'redux'
+import reducer from './app/modules/symptoms/reducers'
+import reducers from './app/modules/local/reducer'
+//screens
+import HomeScreen from './app/screens/HomeScreen'
+import Results from './app/screens/Results'
 
+const rootReducers = combineReducers({
+  reducer,
+
+
+})
+const store = createStore(combineReducers({ symptoms: reducer, userSelectedSymptoms: reducers }))
+// console.log('this is my store', store.dispatch({ type: 'SET_SELECTED_SYMPTOMS', payload: [] }))
+const Stack = createStackNavigator();
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-    </View>
+    <Provider store={store}>
+      <NavigationContainer><Stack.Navigator>
+        <Stack.Screen
+          name="Check Mate"
+          component={HomeScreen}
+        />
+        <Stack.Screen
+          name="Results"
+          component={Results}
+        />
+      </Stack.Navigator></NavigationContainer>
+    </Provider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});

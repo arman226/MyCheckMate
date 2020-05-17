@@ -1,0 +1,3 @@
+const SET_SYMPTOMS = 'SET_SYMPTOMS'
+
+export { SET_SYMPTOMS }
