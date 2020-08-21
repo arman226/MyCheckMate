@@ -12,7 +12,11 @@ const ModalHeader = ({ name, onClose }) => {
     <View style={styles.modalHeader}>
       <Text style={styles.modalHeaderTitle}>{name}</Text>
       {/* Close */}
-      <TouchableOpacity style={styles.closeButtonContainer} onPress={onClose}>
+      <TouchableOpacity
+        activeOpacity={0.8}
+        style={styles.closeButtonContainer}
+        onPress={onClose}
+      >
         <Text style={styles.text}>X</Text>
       </TouchableOpacity>
     </View>

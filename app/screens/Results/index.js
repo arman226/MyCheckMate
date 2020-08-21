@@ -20,7 +20,6 @@ const Results = ({ userSelectedSymptoms }) => {
   const [message, setMessage] = useState("");
   const [results, setResults] = useState([]);
 
-  //This is not for self diagnosis but for guidance seek help from a professional
   useEffect(() => {
     initializeResults();
   }, []);

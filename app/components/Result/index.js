@@ -11,45 +11,55 @@ import {
 export default function Result(props) {
   const percentage = Math.round(props.percentage * 100);
   return (
-    <TouchableOpacity style={styles.container} activeOpacity={1}>
-      <Text style={styles.titleStyle}>{props.title.toUpperCase()}</Text>
-
-      <View style={styles.progressContainer}>
-        <View style={styles.progress(props.percentage)}></View>
+    <>
+      <TouchableOpacity style={styles.container} activeOpacity={1}>
+        <Text style={styles.titleStyle}>{props.title.toUpperCase()}</Text>
+        <Text style={styles.division}>Cause</Text>
+        <Text style={styles.detailText}>{props.cause}</Text>
+        <Text style={styles.division}>Recommendation</Text>
+        <Text style={styles.detailText}>{props.recommendation}</Text>
+        <Text style={styles.division}>Symptoms</Text>
+        <FlatList
+          data={props.symptoms}
+          keyExtractor={(item) => item._id}
+          numColumns={2}
+          renderItem={(symptom) => (
+            <View style={styles.symptomStyle}>
+              <Text style={styles.symptomText}>{symptom.item}</Text>
+            </View>
+          )}
+        />
+      </TouchableOpacity>
+      <View style={styles.etiquette}>
+        <View style={styles.percentageContainer}>
+          <Text style={{ color: "white" }}>{percentage}%</Text>
+        </View>
       </View>
-      <Text style={{ paddingTop: 5, color: "black" }}>{percentage}%</Text>
-
-      <Text style={styles.division}>Cause</Text>
-      <Text style={styles.detailText}>{props.cause}</Text>
-      <Text style={styles.division}>Recommendation</Text>
-      <Text style={styles.detailText}>{props.recommendation}</Text>
-      <Text style={styles.division}>Symptom</Text>
-      <FlatList
-        data={props.symptoms}
-        keyExtractor={(item) => item._id}
-        numColumns={2}
-        renderItem={(symptom) => (
-          <View style={styles.symptomStyle}>
-            <Text style={styles.symptomText}>{symptom.item}</Text>
-          </View>
-        )}
-      />
-    </TouchableOpacity>
+    </>
   );
 }
 
 const styles = StyleSheet.create({
+  percentageContainer: {
+    backgroundColor: "#3c8ebc",
+    marginTop: 0,
+    padding: 10,
+    borderTopRightRadius: 20,
+    borderBottomLeftRadius: 10,
+    zIndex: 999,
+  },
+  etiquette: {
+    position: "absolute",
+    height: "100%",
+    width: "100%",
+    alignItems: "flex-end",
+  },
   progress: (percentage) => ({
     backgroundColor: "#3c8ebc",
     height: 5,
+    borderRadius: 50,
     width: Dimensions.get("screen").width * percentage,
   }),
-  progressContainer: {
-    backgroundColor: "white",
-    height: 5,
-    width: Dimensions.get("screen").width * 0.92,
-    marginRight: 15,
-  },
   symptomText: {
     color: "white",
     fontSize: 10,
@@ -83,18 +93,18 @@ const styles = StyleSheet.create({
     borderWidth: 0,
     borderColor: "#fff",
     alignItems: "flex-start",
-    marginTop: 2,
-    marginBottom: 2,
+    marginTop: 7,
+    marginBottom: 8,
     paddingLeft: 15,
     width: Dimensions.get("window").width * 0.945,
-    shadowColor: "black",
-    shadowOffset: {
-      width: 0.5,
-      height: 0.5,
-    },
-    shadowOpacity: 0.5,
-    shadowRadius: 2,
-    elevation: 0.8,
+    // shadowColor: "black",
+    // shadowOffset: {
+    //   width: 0.5,
+    //   height: 0.5,
+    // },
+    // shadowOpacity: 0.5,
+    // shadowRadius: 2,
+    // elevation: 0,git
     paddingTop: 5,
     paddingBottom: 5,
   },

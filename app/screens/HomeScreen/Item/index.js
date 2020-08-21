@@ -19,19 +19,7 @@ const Item = ({ _id, title, selected, onSelect }) => {
       style={styles.container(selected)}
     >
       <Text style={styles.title(selected)}>{title}</Text>
-      <View
-        style={{
-          borderWidth: 0.7,
-          minWidth: 30,
-          maxWidth: 30,
-          justifyContent: "center",
-          alignItems: "center",
-          borderRadius: 10,
-          borderColor: "#0003",
-        }}
-      >
-        {selected && <Text style={styles.check}>✔</Text>}
-      </View>
+      <View>{selected && <Text style={styles.check}>✔</Text>}</View>
     </TouchableOpacity>
   );
 };
