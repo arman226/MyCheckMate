@@ -11,32 +11,36 @@ import {
 export default function Result(props) {
   const percentage = Math.round(props.percentage * 100);
   return (
-    <>
-      <TouchableOpacity style={styles.container} activeOpacity={1}>
-        <Text style={styles.titleStyle}>{props.title.toUpperCase()}</Text>
-        <Text style={styles.division}>Cause</Text>
-        <Text style={styles.detailText}>{props.cause}</Text>
-        <Text style={styles.division}>Recommendation</Text>
-        <Text style={styles.detailText}>{props.recommendation}</Text>
-        <Text style={styles.division}>Symptoms</Text>
-        <FlatList
-          data={props.symptoms}
-          keyExtractor={(item) => item._id}
-          numColumns={2}
-          renderItem={(symptom) => (
-            <View style={styles.symptomStyle}>
-              <Text style={styles.symptomText}>{symptom.item}</Text>
-            </View>
-          )}
-        />
-      </TouchableOpacity>
-      <View style={styles.etiquette}>
+    // <View>
+    <TouchableOpacity style={styles.container} activeOpacity={1}>
+      <Text style={styles.titleStyle}>{props.title.toUpperCase()}</Text>
+      <Text style={styles.division}>Cause</Text>
+      <Text style={styles.detailText}>{props.cause}</Text>
+      <Text style={styles.division}>Recommendation</Text>
+      <Text style={styles.detailText}>{props.recommendation}</Text>
+      <Text style={styles.division}>Symptoms</Text>
+      <FlatList
+        data={props.symptoms}
+        keyExtractor={(item) => item._id}
+        numColumns={2}
+        renderItem={(symptom) => (
+          <View style={styles.symptomStyle}>
+            <Text style={styles.symptomText}>{symptom.item}</Text>
+          </View>
+        )}
+      />
+    </TouchableOpacity>
+  );
+  {
+    /* <View style={styles.etiquette}>
         <View style={styles.percentageContainer}>
           <Text style={{ color: "white" }}>{percentage}%</Text>
         </View>
-      </View>
-    </>
-  );
+      </View> */
+  }
+  {
+    /* </View> */
+  }
 }
 
 const styles = StyleSheet.create({
@@ -95,16 +99,17 @@ const styles = StyleSheet.create({
     alignItems: "flex-start",
     marginTop: 7,
     marginBottom: 8,
+    backgroundColor: "#FFF",
     paddingLeft: 15,
     width: Dimensions.get("window").width * 0.945,
-    // shadowColor: "black",
-    // shadowOffset: {
-    //   width: 0.5,
-    //   height: 0.5,
-    // },
-    // shadowOpacity: 0.5,
-    // shadowRadius: 2,
-    // elevation: 0,git
+    shadowColor: "black",
+    shadowOffset: {
+      width: 0.5,
+      height: 0.5,
+    },
+    shadowOpacity: 0.5,
+    shadowRadius: 2,
+    elevation: 1,
     paddingTop: 5,
     paddingBottom: 5,
   },

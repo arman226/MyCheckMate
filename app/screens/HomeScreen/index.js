@@ -38,6 +38,7 @@ const HomeScreen = ({
   const [categories, setCategories] = useState([]);
   //this determines whether or not the loading indicator is supposed to be shown
   const [isLoading, setIsLoading] = useState(true);
+  const [isRefreshing, setIsRefreshing] = useState(false);
   //error message
   const [message, setMessage] = useState("");
   //this determines whether the modal (list of symptoms to choose from) is expected to be shown
@@ -85,6 +86,19 @@ const HomeScreen = ({
       setMessage(error.message);
     } finally {
       setIsLoading(false);
+      setMessage("");
+    }
+  };
+
+  const refreshList = async () => {
+    setIsRefreshing(true);
+    try {
+      await setCategoryList();
+      await fetchAllSymptoms();
+    } catch (error) {
+      setMessage(error.message);
+    } finally {
+      setIsRefreshing(false);
       setMessage("");
     }
   };
@@ -144,7 +158,7 @@ const HomeScreen = ({
     initializeData();
   }, []);
 
-  if (isLoading) {
+  if (isLoading && !isRefreshing) {
     return (
       <View style={styles.loading}>
         <ActivityIndicator size="large" />
@@ -180,8 +194,8 @@ const HomeScreen = ({
       <FlatList
         keyExtractor={(item) => item._id}
         numColumns={2}
-        onRefresh={initializeData}
-        refreshing={isLoading}
+        onRefresh={refreshList}
+        refreshing={isRefreshing}
         ListHeaderComponent={() =>
           categories.length > 0 ? <Instruction /> : null
         }

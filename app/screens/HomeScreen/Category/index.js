@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
       height: 1,
     },
     shadowOpacity: 1,
-    shadowRadius: 2,
+    shadowRadius: 0.5,
     elevation: 1,
     backgroundColor: "#FFFAFA",
     alignItems: "center",

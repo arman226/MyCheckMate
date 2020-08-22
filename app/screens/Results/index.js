@@ -17,6 +17,7 @@ import Precaution from "./Precaution";
 const { height, width } = Dimensions.get("window");
 const Results = ({ userSelectedSymptoms }) => {
   const [isLoading, setIsLoading] = useState(false);
+  const [isRefreshing, setIsRefreshing] = useState(false);
   const [message, setMessage] = useState("");
   const [results, setResults] = useState([]);
 
@@ -33,6 +34,14 @@ const Results = ({ userSelectedSymptoms }) => {
     );
   };
 
+  const refreshList = async () => {
+    await initializeData(
+      setIsRefreshing,
+      setResults,
+      setMessage,
+      userSelectedSymptoms
+    );
+  };
   const renderItem = ({ item }) => (
     <Result
       percentage={item.percentage}
@@ -42,7 +51,7 @@ const Results = ({ userSelectedSymptoms }) => {
       recommendation={item.recommendation}
     />
   );
-  if (isLoading) {
+  if (isLoading && !isRefreshing) {
     return (
       <View style={styles.loading}>
         <ActivityIndicator size="large" />
@@ -61,8 +70,8 @@ const Results = ({ userSelectedSymptoms }) => {
       <FlatList
         keyExtractor={(item) => item._id}
         data={results}
-        refreshing={isLoading}
-        onRefresh={initializeResults}
+        refreshing={isRefreshing}
+        onRefresh={refreshList}
         showsVerticalScrollIndicator={false}
         ListHeaderComponent={() => (results.length > 0 ? <Precaution /> : null)}
         ListEmptyComponent={() => (
