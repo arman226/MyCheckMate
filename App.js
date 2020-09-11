@@ -8,6 +8,7 @@ import reducers from "./app/modules/local/reducer";
 //screens
 import HomeScreen from "./app/screens/HomeScreen";
 import Results from "./app/screens/Results";
+import AgeScreen from "./app/screens/AgeScreen";
 
 const rootReducers = combineReducers({
   reducer,
@@ -22,6 +23,11 @@ export default function App() {
     <Provider store={store}>
       <NavigationContainer>
         <Stack.Navigator>
+          <Stack.Screen
+            name="Age Verification"
+            component={AgeScreen}
+            options={{ headerShown: false }}
+          />
           <Stack.Screen name="Check Mate" component={HomeScreen} />
           <Stack.Screen name="Results" component={Results} />
         </Stack.Navigator>

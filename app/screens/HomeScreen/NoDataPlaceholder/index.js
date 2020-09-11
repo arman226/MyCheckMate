@@ -3,10 +3,11 @@ import { View, Text, Dimensions, StyleSheet } from "react-native";
 
 const { height } = Dimensions.get("window");
 
-const NoDataPlaceholder = ({ text }) => {
+const NoDataPlaceholder = ({ text, children }) => {
   return (
     <View style={styles.container}>
-      <Text>{text}</Text>
+      {children}
+      <Text style={styles.text}>{text}</Text>
     </View>
   );
 };
@@ -17,6 +18,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: "#FFF",
+  },
+  text: {
+    color: "#adadad",
+    fontWeight: "bold",
+    fontSize: 16,
+    textAlign: "center",
   },
 });
 export default NoDataPlaceholder;
