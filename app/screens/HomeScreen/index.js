@@ -1,9 +1,12 @@
+//https://www.vectorstock.com/royalty-free-vector/flat-web-icon-with-long-shadow-mobile-applications-vector-11146763
+
 import React, { useEffect, useState } from "react";
 import {
   Modal,
   FlatList,
   StyleSheet,
   View,
+  Image,
   ActivityIndicator,
   Dimensions,
 } from "react-native";
@@ -21,6 +24,7 @@ import Category from "./Category";
 import ErrorHandler from "./ErrorHandler";
 import SeeResultsButton from "./SeeResultsButton";
 import Instruction from "./Instruction";
+import empty from "../../assets/empty.jpg";
 const HEIGHT = Dimensions.get("window").height;
 const WIDTH = Dimensions.get("window").width;
 const HomeScreen = ({
@@ -204,13 +208,24 @@ const HomeScreen = ({
         renderItem={(category) => (
           <Category category={category} onCategorySelect={onCategorySelect} />
         )}
-        ListEmptyComponent={() => <NoDataPlaceholder text={message} />}
+        ListEmptyComponent={() => (
+          <NoDataPlaceholder text="I'm sorry! We don't have a list of categories for you to choose from">
+            <Image source={empty} style={styles.image} />
+          </NoDataPlaceholder>
+        )}
       />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+  image: {
+    height: HEIGHT * 0.15,
+    width: WIDTH * 0.92,
+    resizeMode: "contain",
+    borderRadius: 4,
+    marginBottom: 6,
+  },
   loading: {
     height: HEIGHT,
     alignItems: "center",
