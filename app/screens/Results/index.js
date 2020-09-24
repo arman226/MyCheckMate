@@ -8,11 +8,11 @@ import {
   Dimensions,
 } from "react-native";
 import { connect } from "react-redux";
-import Result from "../../components/Result";
 import NoDataPlaceholder from "../HomeScreen/NoDataPlaceholder";
 import { initializeData } from "./utils";
 import ErrorHandler from "../HomeScreen/ErrorHandler";
 import Precaution from "./Precaution";
+import Item from "./Item";
 
 const { height, width } = Dimensions.get("window");
 const Results = ({ userSelectedSymptoms }) => {
@@ -42,15 +42,7 @@ const Results = ({ userSelectedSymptoms }) => {
       userSelectedSymptoms
     );
   };
-  const renderItem = ({ item }) => (
-    <Result
-      percentage={item.percentage}
-      title={item.name}
-      cause={item.cause}
-      symptoms={item.symptoms}
-      recommendation={item.recommendation}
-    />
-  );
+  const renderItem = ({ item }) => <Item item={item} />;
   if (isLoading && !isRefreshing) {
     return (
       <View style={styles.loading}>
