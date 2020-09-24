@@ -10,7 +10,7 @@ const { width } = Dimensions.get("window");
 const ModalHeader = ({ name, onClose }) => {
   return (
     <View style={styles.modalHeader}>
-      <Text style={styles.modalHeaderTitle}>{name}</Text>
+      <Text style={styles.modalHeaderTitle}>Symptoms of {name}</Text>
       {/* Close */}
       <TouchableOpacity
         activeOpacity={0.8}

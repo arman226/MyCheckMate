@@ -68,7 +68,7 @@ const AgeScreen = ({ navigation }) => {
       <View style={{ alignContent: "center" }}>
         <Button
           text="Submit"
-          active={show}
+          active={show && age > 0}
           onPress={() => {
             navigation.navigate("Check Mate");
           }}

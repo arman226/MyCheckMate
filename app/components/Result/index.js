@@ -8,42 +8,81 @@ import {
   FlatList,
 } from "react-native";
 
-export default function Result(props) {
+const { height, width } = Dimensions.get("window");
+const Result = (props) => {
   const percentage = Math.round(props.percentage * 100);
   return (
-    // <View>
     <TouchableOpacity style={styles.container} activeOpacity={1}>
-      <Text style={styles.titleStyle}>{props.title.toUpperCase()}</Text>
-      <Text style={styles.division}>Cause</Text>
-      <Text style={styles.detailText}>{props.cause}</Text>
-      <Text style={styles.division}>Recommendation</Text>
-      <Text style={styles.detailText}>{props.recommendation}</Text>
-      <Text style={styles.division}>Symptoms</Text>
-      <FlatList
-        data={props.symptoms}
-        keyExtractor={(item) => item._id}
-        numColumns={2}
-        renderItem={(symptom) => (
-          <View style={styles.symptomStyle}>
-            <Text style={styles.symptomText}>{symptom.item}</Text>
-          </View>
-        )}
-      />
+      <View
+        style={[
+          styles.card,
+          {
+            borderLeftColor: "#d7a9e3ff",
+            borderLeftWidth: 4,
+          },
+        ]}
+      >
+        <Text style={styles.division}>Cause</Text>
+        <Text style={styles.detailText}>{props.cause}</Text>
+      </View>
+      <View
+        style={[
+          styles.card,
+          {
+            borderLeftColor: "#8bbbee8ff",
+            borderLeftWidth: 4,
+          },
+        ]}
+      >
+        <Text style={styles.division}>Recommendation</Text>
+        <Text style={styles.detailText}>{props.recommendation}</Text>
+      </View>
+      <View
+        style={[
+          styles.card,
+          {
+            borderLeftColor: "#a8d5baff",
+            borderLeftWidth: 4,
+          },
+        ]}
+      >
+        <Text style={styles.division}>Symptoms</Text>
+        <FlatList
+          data={props.symptoms}
+          keyExtractor={(item) => item._id}
+          numColumns={2}
+          renderItem={(symptom) => (
+            <View style={styles.symptomStyle}>
+              <Text style={styles.symptomText}>{symptom.item}</Text>
+            </View>
+          )}
+        />
+      </View>
     </TouchableOpacity>
   );
-  {
-    /* <View style={styles.etiquette}>
-        <View style={styles.percentageContainer}>
-          <Text style={{ color: "white" }}>{percentage}%</Text>
-        </View>
-      </View> */
-  }
-  {
-    /* </View> */
-  }
-}
+};
 
 const styles = StyleSheet.create({
+  card: {
+    borderRadius: 4,
+    alignItems: "flex-start",
+    marginTop: 7,
+    marginBottom: 8,
+    backgroundColor: "#FFF",
+    paddingLeft: 10,
+    paddingRight: 9,
+    width: width * 0.97,
+    shadowColor: "black",
+    shadowOffset: {
+      width: 0.5,
+      height: 0.5,
+    },
+    shadowOpacity: 0.5,
+    shadowRadius: 2,
+    elevation: 1,
+    paddingTop: 5,
+    paddingBottom: 10,
+  },
   percentageContainer: {
     backgroundColor: "#3c8ebc",
     marginTop: 0,
@@ -86,6 +125,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     marginBottom: 5,
     color: "black",
+    fontSize: 20,
   },
   titleStyle: {
     fontWeight: "bold",
@@ -100,8 +140,8 @@ const styles = StyleSheet.create({
     marginTop: 7,
     marginBottom: 8,
     backgroundColor: "#FFF",
-    paddingLeft: 15,
-    width: Dimensions.get("window").width * 0.945,
+    paddingLeft: 5,
+    width: width,
     shadowColor: "black",
     shadowOffset: {
       width: 0.5,
@@ -112,5 +152,9 @@ const styles = StyleSheet.create({
     elevation: 1,
     paddingTop: 5,
     paddingBottom: 5,
+    paddingRight: 5,
+    height,
   },
 });
+
+export default Result;

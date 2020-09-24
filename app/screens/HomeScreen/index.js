@@ -1,5 +1,4 @@
 //https://www.vectorstock.com/royalty-free-vector/flat-web-icon-with-long-shadow-mobile-applications-vector-11146763
-
 import React, { useEffect, useState } from "react";
 import {
   Modal,
@@ -18,13 +17,13 @@ import { actionCreators as actions } from "../../modules/symptoms/actionCreators
 import { actionCreators as userActions } from "../../modules/local/actionCreators";
 import Item from "./Item";
 import NoDataPlaceholder from "./NoDataPlaceholder";
-import ItemSeparator from "./ItemSeparator";
 import ModalHeader from "./ModalHeader";
 import Category from "./Category";
 import ErrorHandler from "./ErrorHandler";
 import SeeResultsButton from "./SeeResultsButton";
 import Instruction from "./Instruction";
 import empty from "../../assets/empty.jpg";
+import ModalActions from "./ModalActions";
 const HEIGHT = Dimensions.get("window").height;
 const WIDTH = Dimensions.get("window").width;
 const HomeScreen = ({
@@ -32,6 +31,7 @@ const HomeScreen = ({
   setSymptoms,
   navigation,
   setUserSelectedSymtpoms,
+  userSelectedSymptoms,
 }) => {
   React.useLayoutEffect(() => {
     navigation.setOptions({
@@ -53,14 +53,14 @@ const HomeScreen = ({
       name: "",
     },
   });
+  //for newly Selected Symptoms
+  const [newSymp, setNewSymp] = useState([]);
   //
   const seeResults = () => {
     navigation.navigate("Results");
   };
   //this contains the symptoms to be displayed
   const [displayedSymptoms, setDisplayedSymptoms] = useState([]);
-  //this contains all the selected symptoms of the user
-  const [selectedSymptoms, setMySelectedSymptoms] = useState([]);
   const [selected, setSelected] = React.useState(new Map());
   //fetching Categories from API
   const setCategoryList = async () => {
@@ -130,12 +130,26 @@ const HomeScreen = ({
       const newSelected = new Map(selected);
       newSelected.set(_id, !selected.get(_id));
       setSelected(newSelected);
+      let tempNewSymp = newSymp;
+      //if not yet
+      if (!newSelected.get(_id)) {
+        tempNewSymp.push(_id);
+        setNewSymp(tempNewSymp);
+      } else {
+        const index = tempNewSymp.indexOf(_id);
+        tempNewSymp.splice(index, 1);
+        setNewSymp(tempNewSymp);
+      }
     },
     [selected]
   );
 
-  const allSelectedSymptoms = async () => {
+  const allSelectedSymptoms = () => {
     setModalVisible(false);
+    collectSymptoms();
+  };
+
+  const collectSymptoms = () => {
     var tempSelectedSymptoms = [...selected.keys()];
     var tempSelectedSymptomsValue = [...selected.values()];
     var assignedSymptoms = [];
@@ -144,14 +158,17 @@ const HomeScreen = ({
         assignedSymptoms.push(symp);
       }
     });
-    setMySelectedSymptoms(assignedSymptoms);
-    await setUserSelectedSymtpoms(assignedSymptoms);
+    //saves to store
+    setUserSelectedSymtpoms(assignedSymptoms);
+    //deletes the temp
+    setNewSymp([]);
   };
 
   const renderSymptoms = ({ item }) => (
     <Item
       _id={item.name}
       title={item.name}
+      description={item.description}
       selected={!!selected.get(item.name)}
       onSelect={onSelect}
     />
@@ -180,7 +197,16 @@ const HomeScreen = ({
         <View style={styles.modalContainer}>
           <ModalHeader
             name={selectedCategory.item.name}
-            onClose={allSelectedSymptoms}
+            onClose={() => {
+              const newSelected = new Map(selected);
+              var temp = [...newSelected.keys()];
+              //deactivates which has to be deactivated
+              temp.map((s) =>
+                newSelected.set(s, userSelectedSymptoms.includes(s))
+              );
+              setSelected(newSelected);
+              setModalVisible(false);
+            }}
           />
           <FlatList
             keyExtractor={(item) => item._id}
@@ -188,10 +214,13 @@ const HomeScreen = ({
             showsVerticalScrollIndicator={false}
             renderItem={renderSymptoms}
             ListEmptyComponent={() => (
-              <NoDataPlaceholder text="No symptoms to choose from" />
+              <NoDataPlaceholder text="No symptoms to choose from">
+                <Image source={empty} style={styles.image} />
+              </NoDataPlaceholder>
             )}
             extraData={selected}
           />
+          <ModalActions onSave={allSelectedSymptoms} />
         </View>
       </Modal>
 

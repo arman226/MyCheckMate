@@ -9,6 +9,7 @@ import reducers from "./app/modules/local/reducer";
 import HomeScreen from "./app/screens/HomeScreen";
 import Results from "./app/screens/Results";
 import AgeScreen from "./app/screens/AgeScreen";
+import ResultDetail from "./app/screens/ResultDetail";
 
 const rootReducers = combineReducers({
   reducer,
@@ -30,6 +31,7 @@ export default function App() {
           />
           <Stack.Screen name="Check Mate" component={HomeScreen} />
           <Stack.Screen name="Results" component={Results} />
+          <Stack.Screen name="Details" component={ResultDetail} />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>
