@@ -1,4 +1,5 @@
-import React, { useEffect } from "react";
+import React from "react";
+import { ScrollView } from "react-native";
 import Result from "../../components/Result";
 
 const ResultDetail = ({ route, navigation }) => {
@@ -10,13 +11,15 @@ const ResultDetail = ({ route, navigation }) => {
   }, [navigation]);
 
   return (
-    <Result
-      percentage={item.percentage}
-      title={item.name}
-      cause={item.cause}
-      symptoms={item.symptoms}
-      recommendation={item.recommendation}
-    />
+    <ScrollView>
+      <Result
+        percentage={item.percentage}
+        title={item.name}
+        cause={item.cause}
+        symptoms={item.symptoms}
+        recommendation={item.recommendation}
+      />
+    </ScrollView>
   );
 };
 

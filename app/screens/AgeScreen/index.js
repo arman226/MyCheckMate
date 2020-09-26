@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
     height: height * 0.15,
     width: width * 0.92,
     resizeMode: "contain",
-    borderRadius: 4,
+    borderRadius: height / 2,
     marginBottom: 3,
   },
   check: {

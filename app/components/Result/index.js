@@ -4,15 +4,15 @@ import {
   View,
   Text,
   Dimensions,
-  TouchableOpacity,
   FlatList,
+  ScrollView,
 } from "react-native";
 
 const { height, width } = Dimensions.get("window");
 const Result = (props) => {
   const percentage = Math.round(props.percentage * 100);
   return (
-    <TouchableOpacity style={styles.container} activeOpacity={1}>
+    <ScrollView style={styles.container}>
       <View
         style={[
           styles.card,
@@ -58,7 +58,7 @@ const Result = (props) => {
           )}
         />
       </View>
-    </TouchableOpacity>
+    </ScrollView>
   );
 };
 
@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     alignItems: "flex-start",
     marginTop: 7,
-    marginBottom: 8,
+    marginBottom: 5,
     backgroundColor: "#FFF",
     paddingLeft: 10,
     paddingRight: 9,
@@ -136,9 +136,7 @@ const styles = StyleSheet.create({
     borderRadius: 7,
     borderWidth: 0,
     borderColor: "#fff",
-    alignItems: "flex-start",
     marginTop: 7,
-    marginBottom: 8,
     backgroundColor: "#FFF",
     paddingLeft: 5,
     width: width,
@@ -153,7 +151,7 @@ const styles = StyleSheet.create({
     paddingTop: 5,
     paddingBottom: 5,
     paddingRight: 5,
-    height,
+    minHeight: height * 0.9,
   },
 });
 

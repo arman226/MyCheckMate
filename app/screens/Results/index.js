@@ -14,7 +14,7 @@ import ErrorHandler from "../HomeScreen/ErrorHandler";
 import Precaution from "./Precaution";
 import Item from "./Item";
 
-const { height, width } = Dimensions.get("window");
+const { height } = Dimensions.get("window");
 const Results = ({ userSelectedSymptoms }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isRefreshing, setIsRefreshing] = useState(false);
@@ -67,7 +67,7 @@ const Results = ({ userSelectedSymptoms }) => {
         showsVerticalScrollIndicator={false}
         ListHeaderComponent={() => (results.length > 0 ? <Precaution /> : null)}
         ListEmptyComponent={() => (
-          <NoDataPlaceholder text="Sorry. We can't help you with your condition." />
+          <NoDataPlaceholder text="Sorry. We couldn't find any exact matches" />
         )}
         renderItem={renderItem}
       />
@@ -81,6 +81,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     paddingHorizontal: 10,
+    minHeight: height,
+    // paddingVertical: 15,
   },
   loading: {
     height,

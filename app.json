@@ -1,16 +1,11 @@
 {
   "expo": {
-    "name": "MyCheckMate",
-    "slug": "MyCheckMate",
+    "name": "MyCheckMate v.2",
+    "slug": "MyCheckMate v.2",
     "platforms": ["ios", "android", "web"],
-    "version": "1.0.0",
+    "version": "1.0.3",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
-    "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
-    },
     "updates": {
       "fallbackToCacheTimeout": 0
     },
@@ -19,8 +14,8 @@
       "supportsTablet": true
     },
     "android": {
-      "package": "com.its.checkmate",
-      "versionCode": 1
+      "package": "com.its.checkmate2",
+      "versionCode": 3
     }
   }
 }

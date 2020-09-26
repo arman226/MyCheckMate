@@ -15,8 +15,8 @@ const Item = ({ item }) => {
       activeOpacity={0.5}
       onPress={onHandlePress}
     >
-      <Text style={{ color: "#000", fontWeight: "bold" }}>{name}</Text>
-      <Text style={{ color: "#000", fontWeight: "normal", fontSize: 10 }}>
+      <Text style={styles.nameText}>{name}</Text>
+      <Text style={styles.causeText}>
         {cause.length > 77 ? `${cause.slice(0, 77)}...` : cause}
       </Text>
     </TouchableOpacity>
@@ -24,11 +24,20 @@ const Item = ({ item }) => {
 };
 
 const styles = StyleSheet.create({
+  causeText: {
+    color: "#000",
+    fontWeight: "normal",
+    fontSize: 10,
+  },
+  nameText: {
+    color: "#000",
+    fontWeight: "bold",
+  },
   container: {
     padding: 10,
     width: width * 0.94,
     borderWidth: 0.5,
-    marginTop: 5,
+    marginTop: 3,
     borderRadius: 4,
     justifyContent: "center",
     borderColor: "#CC313D",
@@ -37,6 +46,7 @@ const styles = StyleSheet.create({
     borderRightWidth: 0,
     borderBottomWidth: 0,
     borderTopWidth: 0,
+    marginBottom: 12,
   },
 });
 

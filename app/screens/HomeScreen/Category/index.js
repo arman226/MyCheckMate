@@ -44,7 +44,7 @@ const Category = ({
         <ImageBackground
           style={styles.container}
           imageStyle={{ opacity: 0.5, resizeMode: "cover" }}
-          source={{ uri: imagePath != "" ? imagePath : null }}
+          // source={{ uri: imagePath != "" ? imagePath : null }}
         >
           <Text style={styles.text}>
             <Text
@@ -75,7 +75,7 @@ const Category = ({
 const styles = StyleSheet.create({
   badge: {
     backgroundColor: "red",
-    width: 20,
+    width: 25,
     paddingHorizontal: 5,
     paddingVertical: 2,
     borderRadius: 40,

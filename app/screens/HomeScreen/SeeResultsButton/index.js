@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
   },
   text: (hasSymptoms) => ({
     textDecorationStyle: "solid",
-    color: hasSymptoms ? "black" : "gray",
+    color: hasSymptoms ? "#08529c" : "gray",
   }),
 });
 

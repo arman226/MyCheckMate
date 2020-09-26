@@ -8,6 +8,8 @@ import {
   Image,
   ActivityIndicator,
   Dimensions,
+  BackHandler,
+  Alert,
 } from "react-native";
 import { getCategories } from "../../services/category";
 import { getSymptoms } from "../../services/symptoms";
@@ -36,6 +38,7 @@ const HomeScreen = ({
   React.useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => <SeeResultsButton onPress={seeResults} />,
+      headerLeft: () => null,
     });
   }, [navigation]);
   //this will contain the list of fetched categories
@@ -177,6 +180,34 @@ const HomeScreen = ({
   //this function takes place every time the Home screen is being rendered
   useEffect(() => {
     initializeData();
+    const backAction = () => {
+      Alert.alert(
+        "Are you sure you want to go back?",
+        "If you continue, you'll lose your changes.",
+        [
+          {
+            text: "Cancel",
+            onPress: () => null,
+            style: "cancel",
+          },
+          {
+            text: "YES",
+            onPress: () => {
+              navigation.goBack();
+              setUserSelectedSymtpoms([]);
+            },
+          },
+        ]
+      );
+      return true;
+    };
+
+    const backHandler = BackHandler.addEventListener(
+      "hardwareBackPress",
+      backAction
+    );
+
+    return () => backHandler.remove();
   }, []);
 
   if (isLoading && !isRefreshing) {
@@ -230,7 +261,13 @@ const HomeScreen = ({
         onRefresh={refreshList}
         refreshing={isRefreshing}
         ListHeaderComponent={() =>
-          categories.length > 0 ? <Instruction /> : null
+          categories.length > 0 ? (
+            <Instruction
+              onClear={() => {
+                setSelected(new Map());
+              }}
+            />
+          ) : null
         }
         data={categories}
         showsVerticalScrollIndicator={false}
